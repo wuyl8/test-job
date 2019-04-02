@@ -3,7 +3,7 @@
 * @date 2017年2月8日 上午3:06:56 
 * @Description: 此处添加文件描述……
 */
-package com.wuyl.boot.common;
+package com.wuyl.server.common;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.wuyl.boot.common;
+package com.wuyl.server.common;
 
 import java.sql.SQLException;
 import java.util.Collection;

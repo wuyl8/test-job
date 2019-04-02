@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
-import com.wuyl.boot.common.ParentService;
+import com.wuyl.server.common.ParentService;
 import com.wuyl.server.utils.SpringContextUtil;
 import com.wuyl.timedtask.dao.TimedTaskDAOImpl;
 

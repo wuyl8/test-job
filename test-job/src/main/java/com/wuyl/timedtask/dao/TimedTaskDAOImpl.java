@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.wuyl.boot.common.ParentService;
+import com.wuyl.server.common.ParentService;
 
 @Repository("timedTaskDao")
 public class TimedTaskDAOImpl extends ParentService {
