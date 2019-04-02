@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+	    <!-- 读取应用名称 -->
+	    <property name="applicationName">ppm-service-job</property>
+	    <!-- 读取节点名称 -->
+	    <property name="agentId">job</property>	    
+		<!-- 定义日志文件根目录 -->
+		<Property name="logDir" value="logs" />
+		<!-- 定义日志的通用格式 -->
+		<Property name="genericPattern" value="[dic-log]|#|${applicationName}|#|${agentId}|#|%d{yyyy-MM-dd HH:mm:ss.SSS}|#|%p|#|%X{TRANSACTION_ID},%X{SPAN_ID}|#|%X{buseness}|#|%X{busParams}|#|%l|#|%n%m%n"/>
+		<!-- 定义日志分卷文件通用文件名形式 -->
+		<Property name="genericFilePattern" value="%d{yyyy-MM-dd}-%i" />
+		<!-- 定义本应用日志输出形式 -->
+		<Property name="flowPattern" value="[ppm-service-job-log] %date [%thread] %-5level %logger{80} - %msg%n"/>
+	</Properties>
+	<Appenders>
+		<Console name="consoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="${flowPattern}" />
+		</Console>
+		<RollingFile name="rollingDayFile" fileName="${logDir}/${applicationName}-${agentId}.log" filePattern="${logDir}/${applicationName}-${agentId}-${genericFilePattern}.log" append="true">
+			<PatternLayout pattern="${genericPattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="1024 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+			<Filters>
+                <!-- 输出info及其以上信息 -->
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+		</RollingFile>
+		<RollingFile name="debugFile" fileName="${logDir}/${applicationName}-${agentId}-debug_log.log" filePattern="${logDir}/${applicationName}-${agentId}-debug_log${genericFilePattern}.log" append="true">
+			<PatternLayout pattern="${flowPattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="1024 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+			<Filters>
+                <!-- 只输出debug信息 -->
+				<ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>  
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+		</RollingFile>
+		<RollingFile name="infoFile" fileName="${logDir}/${applicationName}-${agentId}-info_log.log" filePattern="${logDir}/${applicationName}-${agentId}-info_log${genericFilePattern}.log" append="true">
+			<PatternLayout pattern="${flowPattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="1024 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+			<Filters>
+                <!-- 只输出info信息 -->
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>  
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+		</RollingFile>
+		<RollingFile name="errorFile" fileName="${logDir}/${applicationName}-${agentId}-error_log.log" filePattern="${logDir}/${applicationName}-${agentId}-error_log${genericFilePattern}.log" append="true">
+			<PatternLayout pattern="${flowPattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="1024 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+			<Filters>
+                <!-- 只输出error信息 -->
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="DEBUG" includeLocation="true">
+			<appender-ref ref="consoleAppender" />
+		</Root>
+		<AsyncLogger name="com.tydic" level="DEBUG" additivity="true">
+			<AppenderRef ref="rollingDayFile" />
+			<AppenderRef ref="errorFile" />
+		</AsyncLogger>	
+		<AsyncLogger name="org.apache.zookeeper" level="INFO" additivity="true"> 
+			<AppenderRef ref="infoFile" />
+	    	<appender-ref ref="errorFile"/>
+	  	</AsyncLogger>
+	  	<AsyncLogger name="com.alibaba.dubbo" level="ERROR" additivity="true">  
+	    	<appender-ref ref="errorFile"/> 
+	  	</AsyncLogger>
+	  	<AsyncLogger name="com.ctg.itrdc.cache" level="ERROR" additivity="true">  
+	    	<appender-ref ref="errorFile"/>  
+	  	</AsyncLogger>
+	</Loggers>	
+</Configuration>

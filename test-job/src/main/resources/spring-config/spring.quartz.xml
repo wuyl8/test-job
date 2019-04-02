@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.tydic.boot.ppmService.server.utils.SpringContextUtil"></bean>
+    <!-- 销售品统计定时任务 -->
+    <bean id="offerStatisticsJob" class="com.tydic.boot.ppmService.timedtask.job.OfferStatisticsJob" init-method="init">
+    	<property name="jobName" value="${timedtask.offerStatisticsJob.jobName}"/>
+    	<property name="switchState" value="${timedtask.offerStatisticsJob.switchState}"/>
+    	<property name="cronExpression" value="${timedtask.offerStatisticsJob.cronExpression}"/>
+    	<property name="ftpServer" value="${timedtask.offerStatisticsJob.ftpServer}"/>
+    	<property name="ftpUsername" value="${timedtask.offerStatisticsJob.ftpUsername}"/>
+    	<property name="ftpPassword" value="${timedtask.offerStatisticsJob.ftpPassword}"/>
+    	<property name="ftpFilePath" value="${timedtask.offerStatisticsJob.ftpFilePath}"/>
+    	<property name="ftpFileDownloadPath" value="${timedtask.offerStatisticsJob.ftpFileDownloadPath}"/>
+    </bean>
+    
+    <!--业务权限组定时任务 -->
+    <bean id="staffOfferPrivilegeRelJob" class="com.tydic.boot.ppmService.timedtask.job.StaffOfferPrivilegeRelJob" init-method="init">
+    	<property name="jobName" value="${timedtask.staffOfferPrivilegeRelJob.jobName}"/>
+    	<property name="switchState" value="${timedtask.staffOfferPrivilegeRelJob.switchState}"/>
+    	<property name="cronExpression" value="${timedtask.staffOfferPrivilegeRelJob.cronExpression}"/>
+    </bean>
+</beans>

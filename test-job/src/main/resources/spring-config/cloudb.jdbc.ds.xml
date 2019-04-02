@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	 							   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	 							   http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+	                              http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:properties/*.properties"/>
+	<context:component-scan base-package="com.tydic"></context:component-scan>
+	<!-- sql监控拦截器-->
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="10000" />
+		<property name="logSlowSql" value="true" />
+		<property name="mergeSql" value="true" />
+	</bean>
+	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="statementExecutableSqlLogEnable" value="true" />
+	</bean>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<!-- <property name="decryptType" value="md5" /> -->
+		<property name="url" value="${autoconfig.url}" />
+		<property name="username" value="${autoconfig.username}" />
+		<property name="password" value="${autoconfig.password}" />
+		<property name="initialSize" value="${autoconfig.initialSize}" />
+		<property name="minIdle" value="${autoconfig.minIdle}" />
+		<property name="maxActive" value="${autoconfig.maxActive}" />
+		<property name="maxWait" value="${autoconfig.maxWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${autoconfig.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${autoconfig.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${autoconfig.validationQuery}" />
+		<property name="testWhileIdle" value="${autoconfig.testWhileIdle}" />
+		<property name="testOnBorrow" value="${autoconfig.testOnBorrow}" />
+		<property name="testOnReturn" value="${autoconfig.testOnReturn}" />
+		<!-- 配置监控统计拦截的filters-->
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<!-- <ref bean="log-filter" /> -->
+			</list>
+		</property>
+	</bean>
+	<!-- sqlSessionFactory工厂 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:sql-config/*.xml" />
+		<property name="configLocation" value="classpath:mybatis-config/mybatis.config.xml" />
+	</bean>
+	<!-- <bean id="routeSwith" class="com.tydic.fm.mybatis.impl.RouteSwithImpl"></bean> -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+		<property name="targetSqlSessionFactorys">
+			<map>
+				<entry key="sqlSessionFactory" value-ref="sqlSessionFactory" />
+			</map>
+		</property>
+		<!-- <property name="routeSwith" ref="routeSwith"></property> -->
+	</bean>
+	<bean id="sqlSessionDaoSupport" class="com.tydic.fm.mybatis.dao.SqlSessionDaoImpl">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+</beans>
