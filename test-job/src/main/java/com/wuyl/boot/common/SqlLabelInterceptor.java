@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.server.common;
+package com.wuyl.boot.common;
 
 import java.sql.SQLException;
 import java.util.Collection;

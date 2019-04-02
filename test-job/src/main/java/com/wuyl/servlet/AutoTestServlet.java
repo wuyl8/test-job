@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.servlet;
+package com.wuyl.servlet;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
-import com.tydic.boot.ppmService.server.common.ParentService;
-import com.tydic.boot.ppmService.server.utils.SpringContextUtil;
-import com.tydic.boot.ppmService.timedtask.dao.TimedTaskDAOImpl;
+import com.wuyl.boot.common.ParentService;
+import com.wuyl.server.utils.SpringContextUtil;
+import com.wuyl.timedtask.dao.TimedTaskDAOImpl;
 
 public class AutoTestServlet extends HttpServlet {
 

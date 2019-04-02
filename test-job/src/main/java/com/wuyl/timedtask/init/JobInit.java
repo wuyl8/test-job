@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.timedtask.init;
+package com.wuyl.timedtask.init;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;

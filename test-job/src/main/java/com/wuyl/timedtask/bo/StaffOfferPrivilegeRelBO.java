@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.timedtask.bo;
+package com.wuyl.timedtask.bo;
 
 import java.util.Map;
 

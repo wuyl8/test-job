@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.server.utils;
+package com.wuyl.server.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

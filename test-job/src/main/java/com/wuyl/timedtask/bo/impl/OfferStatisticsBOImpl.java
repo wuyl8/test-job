@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.timedtask.bo.impl;
+package com.wuyl.timedtask.bo.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,10 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.tydic.boot.ppmService.server.utils.SftpClient;
-import com.tydic.boot.ppmService.server.utils.Tools;
-import com.tydic.boot.ppmService.timedtask.bo.OfferStatisticsBO;
-import com.tydic.boot.ppmService.timedtask.dao.TimedTaskDAOImpl;
+import com.wuyl.server.utils.SftpClient;
+import com.wuyl.server.utils.Tools;
+import com.wuyl.timedtask.bo.OfferStatisticsBO;
+import com.wuyl.timedtask.dao.TimedTaskDAOImpl;
 
 @Service("offerStatisticsBO")
 public class OfferStatisticsBOImpl implements OfferStatisticsBO {

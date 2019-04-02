@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.timedtask.dao;
+package com.wuyl.timedtask.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.tydic.boot.ppmService.server.common.ParentService;
+import com.wuyl.boot.common.ParentService;
 
 @Repository("timedTaskDao")
 public class TimedTaskDAOImpl extends ParentService {

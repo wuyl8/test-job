@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.server.utils;
+package com.wuyl.server.utils;
 
 /**
  * 描述：sftp服务器文件上传下载类

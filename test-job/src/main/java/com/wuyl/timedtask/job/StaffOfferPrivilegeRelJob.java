@@ -1,4 +1,4 @@
-package com.tydic.boot.ppmService.timedtask.job;
+package com.wuyl.timedtask.job;
 
 import java.util.Map;
 
@@ -8,10 +8,10 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tydic.boot.ppmService.server.utils.SpringContextUtil;
-import com.tydic.boot.ppmService.timedtask.bo.OfferStatisticsBO;
-import com.tydic.boot.ppmService.timedtask.bo.StaffOfferPrivilegeRelBO;
-import com.tydic.boot.ppmService.timedtask.init.JobInit;
+import com.wuyl.server.utils.SpringContextUtil;
+import com.wuyl.timedtask.bo.OfferStatisticsBO;
+import com.wuyl.timedtask.bo.StaffOfferPrivilegeRelBO;
+import com.wuyl.timedtask.init.JobInit;
 
 public class StaffOfferPrivilegeRelJob extends JobInit{
 	public static Logger logger = LoggerFactory.getLogger(StaffOfferPrivilegeRelJob.class);
